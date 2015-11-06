@@ -34,6 +34,8 @@ public class WUAhelper {
 				case "broadcast":
 					System.out.println(broadcastMessage(paramters[0].toString()));
 					break;
+				case "uptime":
+					System.out.println(getUpTime());
 				default:
 					System.out.println("No valid method supplied");
 					break;
@@ -121,5 +123,13 @@ public class WUAhelper {
 			return false;
 		}
 	}
-
+	
+	/**
+	 * Gets the server uptime
+	 * @return
+	 * @throws RemoteException
+	 */
+	private static String getUpTime() throws RemoteException {
+		return wurm.getUptime();
+	}
 }
