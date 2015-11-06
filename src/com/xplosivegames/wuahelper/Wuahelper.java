@@ -36,6 +36,10 @@ public class WUAhelper {
 					break;
 				case "uptime":
 					System.out.println(getUpTime());
+					break;
+				case "wurmTime":
+					System.out.println(getWurmTime());
+					break;
 				default:
 					System.out.println("No valid method supplied");
 					break;
@@ -131,5 +135,9 @@ public class WUAhelper {
 	 */
 	private static String getUpTime() throws RemoteException {
 		return wurm.getUptime();
+	}
+
+	private static String getWurmTime() throws RemoteException {
+		return wurm.getWurmTime();
 	}
 }
