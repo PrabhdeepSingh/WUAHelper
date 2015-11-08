@@ -40,6 +40,12 @@ public class WUAhelper {
 				case "wurmTime":
 					System.out.println(getWurmTime());
 					break;
+				case "isRunning":
+					System.out.println(isRunning());
+					break;
+				case "shutDown":
+					System.out.println(shutDown(paramters[0].toString(), Integer.parseInt(paramters[1].toString()), paramters[2].toString()));
+					break;
 				default:
 					System.out.println("No valid method supplied");
 					break;
@@ -50,7 +56,7 @@ public class WUAhelper {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Gets a player count on the server
 	 * @return Integer Player count
@@ -139,5 +145,20 @@ public class WUAhelper {
 
 	private static String getWurmTime() throws RemoteException {
 		return wurm.getWurmTime();
+	}
+	
+	private static boolean shutDown(String user, int seconds, String reason) {
+		try {
+			wurm.startShutdown(user, seconds, reason);
+			return true;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	private static boolean isRunning() throws RemoteException {
+		return wurm.isRunning();
 	}
 }
