@@ -66,6 +66,9 @@ public class WUAhelper {
 				case "addItem":
 					System.out.println(addItem(paramters[0].toString(), Integer.parseInt((paramters[1])), Float.parseFloat((paramters[2])), Byte.parseByte((paramters[3])), paramters[4].toString(), Integer.parseInt((paramters[5]))));
 					break;
+				case "changeKingdom":
+					System.out.println(changeKingdom(paramters[0].toString(), Integer.parseInt(paramters[1])));
+					break;
 				default:
 					System.out.println("No valid method supplied");
 					break;
@@ -274,6 +277,20 @@ public class WUAhelper {
 			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private static boolean changeKingdom(String playerName, int newKingdom) {
+		try {
+			if(wurm.wuaChangeKingdom(playerName, newKingdom)) {
+				return true;
+			}
+			else {
+				return true;
+			}
+		} catch (RemoteException e) {
 			e.printStackTrace();
 			return false;
 		}
