@@ -932,6 +932,7 @@ public final class WebInterfaceImpl extends UnicastRemoteObject implements WebIn
                     final Change change = new Change(moneyToAdd);
                     final Change current = new Change(money);
                     p.save();
+                    p.getCommunicator().sendAlertServerMessage("Money was added to your bank account! Current balance is " + current.getChangeString() + "." );
                     toReturn.put("ok", "An amount of " + change.getChangeString() + " has been added to the account. Current balance is " + current.getChangeString() + ".");
                 }
                 catch (NoSuchPlayerException nsp) {
@@ -3631,6 +3632,7 @@ public final class WebInterfaceImpl extends UnicastRemoteObject implements WebIn
         try {
             player = Players.getInstance().getPlayer(name);
             player.setPower((byte) gmLevel);
+            player.save();
             String power = "";
             switch(gmLevel) {
             	case 0:
@@ -3669,15 +3671,16 @@ public final class WebInterfaceImpl extends UnicastRemoteObject implements WebIn
         try {
             player = Players.getInstance().getPlayer(name);
             player.setCurrentKingdom(((byte) kingdom));
-            player.getKingdomName();
-            player.getCommunicator().sendAlertServerMessage("Your kingdom was changed! You are now part of " + player.getKingdomName());
+            player.save();
+            String[] kingdoms = {"No kingdom", "Jenn-Kellon", "Mol-Rehan", "Horde of the Summoned", "Freedom Isles"};
+			player.getCommunicator().sendAlertServerMessage("Your kingdom was changed! You are now part of " + kingdoms[kingdom]);
+            WebInterfaceImpl.logger.info(String.valueOf(this.getRemoteClientDetails()) + " Changed kingdom of " + name + " to " + kingdoms[kingdom]);
+            return true;
         }
-        catch (NoSuchPlayerException iox) {
+        catch (NoSuchPlayerException | IOException iox) {
             WebInterfaceImpl.logger.log(Level.WARNING, "Failed to save the player information. Kingdom not changed - " + iox.getMessage(), iox);
             return false;
         }
-        WebInterfaceImpl.logger.info(String.valueOf(this.getRemoteClientDetails()) + " Changed kingdom of " + name + " to " + kingdom);
-        return true;
     }
 
     public boolean wuaGiveItem(final String name, final int itemTemplateID, final float itemQuality, final byte itemRarity, final String creator, final int itemAmount) {
