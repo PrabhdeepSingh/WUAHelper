@@ -1,242 +1,236 @@
-// 
-// Decompiled by Procyon v0.5.30
-// 
-
 package com.wurmonline.server.webinterface;
 
-import com.wurmonline.shared.exceptions.WurmServerException;
-import com.wurmonline.server.NoSuchPlayerException;
 import com.wurmonline.server.players.BannedIp;
-import java.util.Map;
-import java.rmi.RemoteException;
+import com.wurmonline.shared.exceptions.WurmServerException;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.Map;
 
-public interface WebInterface extends Remote
-{
-    public static final int DEFAULT_RMI_PORT = 7220;
-    public static final int DEFAULT_REGISTRATION_PORT = 7221;
-    
-    int getPower(final long p0) throws RemoteException;
-    
-    boolean isRunning() throws RemoteException;
-    
-    int getPlayerCount() throws RemoteException;
-    
-    int getPremiumPlayerCount() throws RemoteException;
-    
-    String getTestMessage() throws RemoteException;
-    
-    void broadcastMessage(final String p0) throws RemoteException;
-    
-    long getAccountStatusForPlayer(final String p0) throws RemoteException;
-    
-    long chargeMoney(final String p0, final long p1) throws RemoteException;
-    
-    String getServerStatus() throws RemoteException;
-    
-    Map<String, Integer> getBattleRanks(final int p0) throws RemoteException;
-    
-    Map<String, Long> getFriends(final long p0) throws RemoteException;
-    
-    Map<String, String> getInventory(final long p0) throws RemoteException;
-    
-    Map<Long, Long> getBodyItems(final long p0) throws RemoteException;
-    
-    Map<String, Float> getSkills(final long p0) throws RemoteException;
-    
-    Map<String, ?> getPlayerSummary(final long p0) throws RemoteException;
-    
-    long getLocalCreationTime() throws RemoteException;
-    
-    String ban(final String p0, final String p1, final int p2) throws RemoteException;
-    
-    String pardonban(final String p0) throws RemoteException;
-    
-    String addBannedIp(final String p0, final String p1, final int p2) throws RemoteException;
-    
-    BannedIp[] getPlayersBanned() throws RemoteException;
-    
-    BannedIp[] getIpsBanned() throws RemoteException;
-    
-    String removeBannedIp(final String p0) throws RemoteException;
-    
-    Map<Integer, String> getKingdoms() throws RemoteException;
-    
-    Map<Long, String> getPlayersForKingdom(final int p0) throws RemoteException;
-    
-    long getPlayerId(final String p0) throws RemoteException;
-    
-    Map<String, ?> createPlayer(final String p0, final String p1, final String p2, final String p3, final String p4, final byte p5, final byte p6, final long p7, final byte p8) throws RemoteException;
-    
-    Map<String, String> createPlayerPhaseOne(final String p0, final String p1) throws RemoteException;
-    
-    Map<String, ?> createPlayerPhaseTwo(final String p0, final String p1, final String p2, final String p3, final String p4, final byte p5, final byte p6, final long p7, final byte p8, final String p9) throws RemoteException;
-    
-    Map<String, ?> createPlayerPhaseTwo(final String p0, final String p1, final String p2, final String p3, final String p4, final byte p5, final byte p6, final long p7, final byte p8, final String p9, final int p10) throws RemoteException;
-    
-    Map<String, ?> createPlayerPhaseTwo(final String p0, final String p1, final String p2, final String p3, final String p4, final byte p5, final byte p6, final long p7, final byte p8, final String p9, final int p10, final boolean p11) throws RemoteException;
-    
-    byte[] createAndReturnPlayer(final String p0, final String p1, final String p2, final String p3, final String p4, final byte p5, final byte p6, final long p7, final byte p8, final boolean p9, final boolean p10, final boolean p11) throws RemoteException;
-    
-    Map<String, String> addMoneyToBank(final String p0, final long p1, final String p2) throws RemoteException;
-    
-    long getMoney(final long p0, final String p1) throws RemoteException;
-    
-    Map<String, String> reversePayment(final long p0, final int p1, final int p2, final String p3, final String p4, final String p5) throws RemoteException;
-    
-    Map<String, String> addMoneyToBank(final String p0, final long p1, final String p2, final boolean p3) throws RemoteException;
-    
-    Map<String, String> addMoneyToBank(final String p0, final long p1, final long p2, final String p3, final boolean p4) throws RemoteException;
-    
-    Map<String, String> addPlayingTime(final String p0, final int p1, final int p2, final String p3, final boolean p4) throws RemoteException;
-    
-    Map<String, String> addPlayingTime(final String p0, final int p1, final int p2, final String p3) throws RemoteException;
-    
-    Map<Integer, String> getDeeds() throws RemoteException;
-    
-    Map<String, ?> getDeedSummary(final int p0) throws RemoteException;
-    
-    Map<String, Long> getPlayersForDeed(final int p0) throws RemoteException;
-    
-    Map<String, Integer> getAlliesForDeed(final int p0) throws RemoteException;
-    
-    String[] getHistoryForDeed(final int p0, final int p1) throws RemoteException;
-    
-    String[] getAreaHistory(final int p0) throws RemoteException;
-    
-    Map<String, ?> getItemSummary(final long p0) throws RemoteException;
-    
-    Map<String, String> getPlayerIPAddresses() throws RemoteException;
-    
-    Map<String, String> getNameBans() throws RemoteException;
-    
-    Map<String, String> getIPBans() throws RemoteException;
-    
-    Map<String, String> getWarnings() throws RemoteException;
-    
-    String getWurmTime() throws RemoteException;
-    
-    String getUptime() throws RemoteException;
-    
-    String getNews() throws RemoteException;
-    
-    String getGameInfo() throws RemoteException;
-    
-    Map<String, String> getKingdomInfluence() throws RemoteException;
-    
-    Map<String, ?> getMerchantSummary(final long p0) throws RemoteException;
-    
-    Map<String, ?> getBankAccount(final long p0) throws RemoteException;
-    
-    Map<String, ?> authenticateUser(final String p0, final String p1, final String p2, final Map p3) throws RemoteException;
-    
-    Map<String, ?> authenticateUser(final String p0, final String p1, final String p2) throws RemoteException;
-    
-    Map<String, String> changePassword(final String p0, final String p1, final String p2) throws RemoteException;
-    
-    Map<String, String> changePassword(final String p0, final String p1, final String p2, final String p3) throws RemoteException;
-    
-    boolean changePassword(final long p0, final String p1) throws RemoteException;
-    
-    Map<String, String> changeEmail(final String p0, final String p1, final String p2) throws RemoteException;
-    
-    String getChallengePhrase(final String p0) throws RemoteException;
-    
-    String[] getPlayerNamesForEmail(final String p0) throws RemoteException;
-    
-    String getEmailAddress(final String p0) throws RemoteException;
-    
-    Map<String, String> requestPasswordReset(final String p0, final String p1) throws RemoteException;
-    
-    Map<Integer, String> getAllServers() throws RemoteException;
-    
-    Map<Integer, String> getAllServerInternalAddresses() throws RemoteException;
-    
-    boolean sendMail(final String p0, final String p1, final String p2, final String p3) throws RemoteException;
-    
-    Map<String, String> getPendingAccounts() throws RemoteException;
-    
-    void shutDown(final String p0, final String p1, final String p2, final int p3) throws RemoteException;
-    
-    Map<String, Byte> getReferrers(final long p0) throws RemoteException;
-    
-    String addReferrer(final String p0, final long p1) throws RemoteException;
-    
-    String acceptReferrer(final long p0, final String p1, final boolean p2) throws RemoteException;
-    
-    Map<String, Double> getSkillStats(final int p0) throws RemoteException;
-    
-    Map<Integer, String> getSkills() throws RemoteException;
-    
-    Map<String, ?> getStructureSummary(final long p0) throws RemoteException;
-    
-    long getStructureIdFromWrit(final long p0) throws RemoteException;
-    
-    Map<String, ?> getTileSummary(final int p0, final int p1, final boolean p2) throws RemoteException;
-    
-    String getReimbursementInfo(final String p0) throws RemoteException;
-    
-    boolean withDraw(final String p0, final String p1, final String p2, final int p3, final int p4, final boolean p5, final int p6) throws RemoteException;
-    
-    boolean transferPlayer(final String p0, final int p1, final int p2, final boolean p3, final int p4, final byte[] p5) throws RemoteException;
-    
-    boolean setCurrentServer(final String p0, final int p1) throws RemoteException;
-    
-    boolean addDraggedItem(final long p0, final byte[] p1, final long p2, final int p3, final int p4) throws RemoteException;
-    
-    String rename(final String p0, final String p1, final String p2, final int p3) throws RemoteException;
-    
-    String changePassword(final String p0, final String p1, final String p2, final int p3) throws RemoteException;
-    
-    String changeEmail(final String p0, final String p1, final String p2, final String p3, final int p4, final String p5, final String p6) throws RemoteException;
-    
-    String addReimb(final String p0, final String p1, final int p2, final int p3, final int p4, final boolean p5) throws RemoteException;
-    
-    long[] getCurrentServerAndWurmid(final String p0, final long p1) throws RemoteException;
-    
-    Map<Long, byte[]> getPlayerStates(final long[] p0) throws RemoteException, WurmServerException;
-    
-    void manageFeature(final int p0, final int p1, final boolean p2, final boolean p3, final boolean p4) throws RemoteException;
-    
-    void startShutdown(final String p0, final int p1, final String p2) throws RemoteException;
-    
-    String sendMail(final byte[] p0, final byte[] p1, final long p2, final long p3, final int p4) throws RemoteException;
-    
-    String setPlayerPremiumTime(final long p0, final long p1, final int p2, final int p3, final String p4) throws RemoteException;
-    
-    String setPlayerMoney(final long p0, final long p1, final long p2, final String p3) throws RemoteException;
-    
-    Map<String, String> doesPlayerExist(final String p0) throws RemoteException;
-    
-    void setWeather(final float p0, final float p1, final float p2) throws RemoteException;
-    
-    String sendVehicle(final byte[] p0, final byte[] p1, final long p2, final long p3, final int p4, final int p5, final int p6, final int p7, final float p8) throws RemoteException;
-    
-    void requestDemigod(final byte p0, final String p1) throws RemoteException;
-    
-    String ascend(final int p0, final String p1, final long p2, final byte p3, final byte p4, final byte p5, final float p6, final float p7) throws RemoteException;
-    
-    boolean requestDeityMove(final int p0, final int p1, final String p2) throws RemoteException;
-    
-    void setKingdomInfo(final int p0, final byte p1, final byte p2, final String p3, final String p4, final String p5, final String p6, final String p7, final String p8, final boolean p9) throws RemoteException;
-    
-    boolean kingdomExists(final int p0, final byte p1, final boolean p2) throws RemoteException;
-    
-    void genericWebCommand(final short p0, final long p1, final byte[] p2) throws RemoteException;
-    
-    int[] getPremTimeSilvers(final long p0) throws RemoteException;
-    
-    void awardPlayer(final long p0, final String p1, final int p2, final int p3) throws RemoteException;
-    
-    boolean wuaBan(final String p0, final String p1, final String p2, final int p3) throws RemoteException;
-    
-    boolean wuaMute(final String p0, final String p1, final int p2) throws RemoteException;
-    
-    boolean wuaUnMute(final String p0) throws RemoteException;
-    
-    boolean wuaChangePower(final String p0, final int p1) throws RemoteException;
-    
-    boolean wuaChangeKingdom(final String p0, final int p1) throws RemoteException;
-    
-    boolean wuaGiveItem(final String p0, final int p1, final float p2, final byte p3, final String p4, final int p5) throws RemoteException;
+public interface WebInterface extends Remote {
+   int DEFAULT_RMI_PORT = 7220;
+   int DEFAULT_REGISTRATION_PORT = 7221;
+
+   int getPower(String var1, long var2) throws RemoteException;
+
+   boolean isRunning(String var1) throws RemoteException;
+
+   int getPlayerCount(String var1) throws RemoteException;
+
+   int getPremiumPlayerCount(String var1) throws RemoteException;
+
+   String getTestMessage(String var1) throws RemoteException;
+
+   void broadcastMessage(String var1, String var2) throws RemoteException;
+
+   long getAccountStatusForPlayer(String var1, String var2) throws RemoteException;
+
+   long chargeMoney(String var1, String var2, long var3) throws RemoteException;
+
+   String getServerStatus(String var1) throws RemoteException;
+
+   Map getBattleRanks(String var1, int var2) throws RemoteException;
+
+   Map getFriends(String var1, long var2) throws RemoteException;
+
+   Map getInventory(String var1, long var2) throws RemoteException;
+
+   Map getBodyItems(String var1, long var2) throws RemoteException;
+
+   Map getSkills(String var1, long var2) throws RemoteException;
+
+   Map getPlayerSummary(String var1, long var2) throws RemoteException;
+
+   long getLocalCreationTime(String var1) throws RemoteException;
+
+   String ban(String var1, String var2, String var3, int var4) throws RemoteException;
+
+   String pardonban(String var1, String var2) throws RemoteException;
+
+   String addBannedIp(String var1, String var2, String var3, int var4) throws RemoteException;
+
+   BannedIp[] getPlayersBanned(String var1) throws RemoteException;
+
+   BannedIp[] getIpsBanned(String var1) throws RemoteException;
+
+   String removeBannedIp(String var1, String var2) throws RemoteException;
+
+   Map getKingdoms(String var1) throws RemoteException;
+
+   Map getPlayersForKingdom(String var1, int var2) throws RemoteException;
+
+   long getPlayerId(String var1, String var2) throws RemoteException;
+
+   Map createPlayer(String var1, String var2, String var3, String var4, String var5, String var6, byte var7, byte var8, long var9, byte var11) throws RemoteException;
+
+   Map createPlayerPhaseOne(String var1, String var2, String var3) throws RemoteException;
+
+   Map createPlayerPhaseTwo(String var1, String var2, String var3, String var4, String var5, String var6, byte var7, byte var8, long var9, byte var11, String var12) throws RemoteException;
+
+   Map createPlayerPhaseTwo(String var1, String var2, String var3, String var4, String var5, String var6, byte var7, byte var8, long var9, byte var11, String var12, int var13) throws RemoteException;
+
+   Map createPlayerPhaseTwo(String var1, String var2, String var3, String var4, String var5, String var6, byte var7, byte var8, long var9, byte var11, String var12, int var13, boolean var14) throws RemoteException;
+
+   byte[] createAndReturnPlayer(String var1, String var2, String var3, String var4, String var5, String var6, byte var7, byte var8, long var9, byte var11, boolean var12, boolean var13, boolean var14) throws RemoteException;
+
+   Map addMoneyToBank(String var1, String var2, long var3, String var5) throws RemoteException;
+
+   long getMoney(String var1, long var2, String var4) throws RemoteException;
+
+   Map reversePayment(String var1, long var2, int var4, int var5, String var6, String var7, String var8) throws RemoteException;
+
+   Map addMoneyToBank(String var1, String var2, long var3, String var5, boolean var6) throws RemoteException;
+
+   Map addMoneyToBank(String var1, String var2, long var3, long var5, String var7, boolean var8) throws RemoteException;
+
+   Map addPlayingTime(String var1, String var2, int var3, int var4, String var5, boolean var6) throws RemoteException;
+
+   Map addPlayingTime(String var1, String var2, int var3, int var4, String var5) throws RemoteException;
+
+   Map getDeeds(String var1) throws RemoteException;
+
+   Map getDeedSummary(String var1, int var2) throws RemoteException;
+
+   Map getPlayersForDeed(String var1, int var2) throws RemoteException;
+
+   Map getAlliesForDeed(String var1, int var2) throws RemoteException;
+
+   String[] getHistoryForDeed(String var1, int var2, int var3) throws RemoteException;
+
+   String[] getAreaHistory(String var1, int var2) throws RemoteException;
+
+   Map getItemSummary(String var1, long var2) throws RemoteException;
+
+   Map getPlayerIPAddresses(String var1) throws RemoteException;
+
+   Map getNameBans(String var1) throws RemoteException;
+
+   Map getIPBans(String var1) throws RemoteException;
+
+   Map getWarnings(String var1) throws RemoteException;
+
+   String getWurmTime(String var1) throws RemoteException;
+
+   String getUptime(String var1) throws RemoteException;
+
+   String getNews(String var1) throws RemoteException;
+
+   String getGameInfo(String var1) throws RemoteException;
+
+   Map getKingdomInfluence(String var1) throws RemoteException;
+
+   Map getMerchantSummary(String var1, long var2) throws RemoteException;
+
+   Map getBankAccount(String var1, long var2) throws RemoteException;
+
+   Map authenticateUser(String var1, String var2, String var3, String var4, Map var5) throws RemoteException;
+
+   Map authenticateUser(String var1, String var2, String var3, String var4) throws RemoteException;
+
+   Map changePassword(String var1, String var2, String var3, String var4) throws RemoteException;
+
+   Map changePassword(String var1, String var2, String var3, String var4, String var5) throws RemoteException;
+
+   boolean changePassword(String var1, long var2, String var4) throws RemoteException;
+
+   Map changeEmail(String var1, String var2, String var3, String var4) throws RemoteException;
+
+   String getChallengePhrase(String var1, String var2) throws RemoteException;
+
+   String[] getPlayerNamesForEmail(String var1, String var2) throws RemoteException;
+
+   String getEmailAddress(String var1, String var2) throws RemoteException;
+
+   Map requestPasswordReset(String var1, String var2, String var3) throws RemoteException;
+
+   Map getAllServers(String var1) throws RemoteException;
+
+   Map getAllServerInternalAddresses(String var1) throws RemoteException;
+
+   boolean sendMail(String var1, String var2, String var3, String var4, String var5) throws RemoteException;
+
+   Map getPendingAccounts(String var1) throws RemoteException;
+
+   void shutDown(String var1, String var2, String var3, String var4, int var5) throws RemoteException;
+
+   Map getReferrers(String var1, long var2) throws RemoteException;
+
+   String addReferrer(String var1, String var2, long var3) throws RemoteException;
+
+   String acceptReferrer(String var1, long var2, String var4, boolean var5) throws RemoteException;
+
+   Map getSkillStats(String var1, int var2) throws RemoteException;
+
+   Map getSkills(String var1) throws RemoteException;
+
+   Map getStructureSummary(String var1, long var2) throws RemoteException;
+
+   long getStructureIdFromWrit(String var1, long var2) throws RemoteException;
+
+   Map getTileSummary(String var1, int var2, int var3, boolean var4) throws RemoteException;
+
+   String getReimbursementInfo(String var1, String var2) throws RemoteException;
+
+   boolean withDraw(String var1, String var2, String var3, String var4, int var5, int var6, boolean var7, int var8) throws RemoteException;
+
+   boolean transferPlayer(String var1, String var2, int var3, int var4, boolean var5, int var6, byte[] var7) throws RemoteException;
+
+   boolean setCurrentServer(String var1, String var2, int var3) throws RemoteException;
+
+   boolean addDraggedItem(String var1, long var2, byte[] var4, long var5, int var7, int var8) throws RemoteException;
+
+   String rename(String var1, String var2, String var3, String var4, int var5) throws RemoteException;
+
+   String changePassword(String var1, String var2, String var3, String var4, int var5) throws RemoteException;
+
+   String changeEmail(String var1, String var2, String var3, String var4, String var5, int var6, String var7, String var8) throws RemoteException;
+
+   String addReimb(String var1, String var2, String var3, int var4, int var5, int var6, boolean var7) throws RemoteException;
+
+   long[] getCurrentServerAndWurmid(String var1, String var2, long var3) throws RemoteException;
+
+   Map getPlayerStates(String var1, long[] var2) throws RemoteException, WurmServerException;
+
+   void manageFeature(String var1, int var2, int var3, boolean var4, boolean var5, boolean var6) throws RemoteException;
+
+   void startShutdown(String var1, String var2, int var3, String var4) throws RemoteException;
+
+   String sendMail(String var1, byte[] var2, byte[] var3, long var4, long var6, int var8) throws RemoteException;
+
+   String setPlayerPremiumTime(String var1, long var2, long var4, int var6, int var7, String var8) throws RemoteException;
+
+   String setPlayerMoney(String var1, long var2, long var4, long var6, String var8) throws RemoteException;
+
+   Map doesPlayerExist(String var1, String var2) throws RemoteException;
+
+   void setWeather(String var1, float var2, float var3, float var4) throws RemoteException;
+
+   String sendVehicle(String var1, byte[] var2, byte[] var3, long var4, long var6, int var8, int var9, int var10, int var11, float var12) throws RemoteException;
+
+   void requestDemigod(String var1, byte var2, String var3) throws RemoteException;
+
+   String ascend(String var1, int var2, String var3, long var4, byte var6, byte var7, byte var8, float var9, float var10) throws RemoteException;
+
+   boolean requestDeityMove(String var1, int var2, int var3, String var4) throws RemoteException;
+
+   void setKingdomInfo(String var1, int var2, byte var3, byte var4, String var5, String var6, String var7, String var8, String var9, String var10, boolean var11) throws RemoteException;
+
+   boolean kingdomExists(String var1, int var2, byte var3, boolean var4) throws RemoteException;
+
+   void genericWebCommand(String var1, short var2, long var3, byte[] var5) throws RemoteException;
+
+   int[] getPremTimeSilvers(String var1, long var2) throws RemoteException;
+
+   void awardPlayer(String var1, long var2, String var4, int var5, int var6) throws RemoteException;
+   
+   boolean wuaBan(String var1, String var2, String var3, String var4, int var5) throws RemoteException;
+   
+   boolean wuaMute(String var1, String var2, String var3, int var4) throws RemoteException;
+   
+   boolean wuaUnMute(String var1, String var2) throws RemoteException;
+   
+   boolean wuaChangePower(String var1, String var2, final int var3) throws RemoteException;
+   
+   boolean wuaChangeKingdom(String var1, String var2, final int var3) throws RemoteException;
+   
+   boolean wuaGiveItem(String var1, String var2, int var3, float var4, byte var5, String var6, int var7) throws RemoteException;
 }

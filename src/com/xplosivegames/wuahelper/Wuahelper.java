@@ -1,17 +1,10 @@
 package com.xplosivegames.wuahelper;
 
-import java.io.IOException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.util.logging.Level;
 
 import com.wurmonline.server.NoSuchPlayerException;
-import com.wurmonline.server.Players;
-import com.wurmonline.server.players.Player;
-import com.wurmonline.server.players.PlayerInfo;
-import com.wurmonline.server.players.PlayerInfoFactory;
 import com.wurmonline.server.webinterface.WebInterface;
-import com.wurmonline.server.webinterface.WebInterfaceImpl;
 
 public class WUAhelper {
 	
@@ -28,46 +21,46 @@ public class WUAhelper {
 			wurm = (WebInterface) Naming.lookup(connectionString);
 			switch(doing) {
 				case "playerCount":
-					System.out.println(getPlayerCount());
+					System.out.println(getPlayerCount(rmiPassword));
 					break;
 				case "broadcast":
-					System.out.println(broadcastMessage(paramters[0].toString()));
+					System.out.println(broadcastMessage(rmiPassword, paramters[0].toString()));
 					break;
 				case "uptime":
-					System.out.println(getUpTime());
+					System.out.println(getUpTime(rmiPassword));
 					break;
 				case "wurmTime":
-					System.out.println(getWurmTime());
+					System.out.println(getWurmTime(rmiPassword));
 					break;
 				case "isRunning":
-					System.out.println(isRunning());
+					System.out.println(isRunning(rmiPassword));
 					break;
 				case "shutDown":
-					System.out.println(shutDown(paramters[0].toString(), Integer.parseInt(paramters[1].toString()), paramters[2].toString()));
+					System.out.println(shutDown(rmiPassword, paramters[0].toString(), Integer.parseInt(paramters[1].toString()), paramters[2].toString()));
 					break;
 				case "ban":
-					System.out.println(banPlayer(paramters[0].toString(), paramters[1].toString(), paramters[2].toString(), Integer.parseInt(paramters[3])));
+					System.out.println(banPlayer(rmiPassword, paramters[0].toString(), paramters[1].toString(), paramters[2].toString(), Integer.parseInt(paramters[3])));
 					break;
 				case "pardon":
-					System.out.println(pardonPlayer(paramters[0].toString(), paramters[1].toString()));
+					System.out.println(pardonPlayer(rmiPassword, paramters[0].toString(), paramters[1].toString()));
 					break;
 				case "mutePlayer":
-					System.out.println(mutePlayer(paramters[0].toString(), paramters[1].toString(), Integer.parseInt(paramters[2])));
+					System.out.println(mutePlayer(rmiPassword, paramters[0].toString(), paramters[1].toString(), Integer.parseInt(paramters[2])));
 					break;
 				case "unMutePlayer":
-					System.out.println(unmutePlayer(paramters[0].toString()));
+					System.out.println(unmutePlayer(rmiPassword, paramters[0].toString()));
 					break;
 				case "addMoney":
-					System.out.println(addMoney(paramters[0].toString(), Long.parseLong((paramters[1]))));
+					System.out.println(addMoney(rmiPassword, paramters[0].toString(), Long.parseLong((paramters[1]))));
 					break;
 				case "changePower":
-					System.out.println(changePower(paramters[0].toString(), Integer.parseInt((paramters[1]))));
+					System.out.println(changePower(rmiPassword, paramters[0].toString(), Integer.parseInt((paramters[1]))));
 					break;
 				case "addItem":
-					System.out.println(addItem(paramters[0].toString(), Integer.parseInt((paramters[1])), Float.parseFloat((paramters[2])), Byte.parseByte((paramters[3])), paramters[4].toString(), Integer.parseInt((paramters[5]))));
+					System.out.println(addItem(rmiPassword, paramters[0].toString(), Integer.parseInt((paramters[1])), Float.parseFloat((paramters[2])), Byte.parseByte((paramters[3])), paramters[4].toString(), Integer.parseInt((paramters[5]))));
 					break;
 				case "changeKingdom":
-					System.out.println(changeKingdom(paramters[0].toString(), Integer.parseInt(paramters[1])));
+					System.out.println(changeKingdom(rmiPassword, paramters[0].toString(), Integer.parseInt(paramters[1])));
 					break;
 				default:
 					System.out.println("No valid method supplied");
@@ -85,8 +78,8 @@ public class WUAhelper {
 	 * @return Integer Player count
 	 * @throws RemoteException
 	 */
-	private static int getPlayerCount() throws RemoteException {
-		return wurm.getPlayerCount();
+	private static int getPlayerCount(String rmiPassword) throws RemoteException {
+		return wurm.getPlayerCount(rmiPassword);
 	}
 	
 	/**
@@ -94,9 +87,9 @@ public class WUAhelper {
 	 * @param message
 	 * @return Boolean
 	 */
-	private static boolean broadcastMessage(String message) {
+	private static boolean broadcastMessage(String rmiPassword, String message) {
 		try {
-			wurm.broadcastMessage(message);
+			wurm.broadcastMessage(rmiPassword, message);
 			return true;
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -109,8 +102,8 @@ public class WUAhelper {
 	 * @return
 	 * @throws RemoteException
 	 */
-	private static String getUpTime() throws RemoteException {
-		return wurm.getUptime();
+	private static String getUpTime(String rmiPassword) throws RemoteException {
+		return wurm.getUptime(rmiPassword);
 	}
 
 	/**
@@ -118,8 +111,8 @@ public class WUAhelper {
 	 * @return
 	 * @throws RemoteException
 	 */
-	private static String getWurmTime() throws RemoteException {
-		return wurm.getWurmTime();
+	private static String getWurmTime(String rmiPassword) throws RemoteException {
+		return wurm.getWurmTime(rmiPassword);
 	}
 	
 	/**
@@ -129,9 +122,9 @@ public class WUAhelper {
 	 * @param reason
 	 * @return
 	 */
-	private static boolean shutDown(String user, int seconds, String reason) {
+	private static boolean shutDown(String rmiPassword, String user, int seconds, String reason) {
 		try {
-			wurm.startShutdown(user, seconds, reason);
+			wurm.startShutdown(rmiPassword, user, seconds, reason);
 			return true;
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -145,8 +138,8 @@ public class WUAhelper {
 	 * @return
 	 * @throws RemoteException
 	 */
-	private static boolean isRunning() throws RemoteException {
-		return wurm.isRunning();
+	private static boolean isRunning(String rmiPassword) throws RemoteException {
+		return wurm.isRunning(rmiPassword);
 	}
 	
 	/**
@@ -159,9 +152,9 @@ public class WUAhelper {
 	 * @throws RemoteException 
 	 * @throws NoSuchPlayerException 
 	 */
-	private static boolean banPlayer(String playerName, String ip, String reason, int days) {
+	private static boolean banPlayer(String rmiPassword, String playerName, String ip, String reason, int days) {
 		try {
-			if(wurm.wuaBan(playerName, ip, reason, days)) {
+			if(wurm.wuaBan(rmiPassword, playerName, ip, reason, days)) {
 				return true;
 			}
 			else {
@@ -180,10 +173,10 @@ public class WUAhelper {
 	 * @param ip
 	 * @return Boolean
 	 */
-	private static boolean pardonPlayer(String playerName, String ip) {
+	private static boolean pardonPlayer(String rmiPassword, String playerName, String ip) {
 		try {
-			wurm.removeBannedIp(ip);
-			wurm.pardonban(playerName);
+			wurm.removeBannedIp(rmiPassword, ip);
+			wurm.pardonban(rmiPassword, playerName);
 			return true;
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -198,10 +191,10 @@ public class WUAhelper {
 	 * @param hours
 	 * @return Boolean
 	 */
-	private static boolean mutePlayer(String playerName, String reason, int hours) {
+	private static boolean mutePlayer(String rmiPassword, String playerName, String reason, int hours) {
 		
 		try {
-			if(wurm.wuaMute(playerName, reason, hours)) {
+			if(wurm.wuaMute(rmiPassword, playerName, reason, hours)) {
 				return true;
 			}
 			else {
@@ -219,10 +212,10 @@ public class WUAhelper {
 	 * @param playerName
 	 * @return
 	 */
-	private static boolean unmutePlayer(String playerName) {
+	private static boolean unmutePlayer(String rmiPassword, String playerName) {
 		
 		try {
-			if(wurm.wuaUnMute(playerName)) {
+			if(wurm.wuaUnMute(rmiPassword, playerName)) {
 				return true;
 			}
 			else {
@@ -241,9 +234,9 @@ public class WUAhelper {
 	 * @param amount
 	 * @return Boolean
 	 */
-	private static boolean addMoney(String playerName, long amount) {
+	private static boolean addMoney(String rmiPassword, String playerName, long amount) {
 		try {
-			wurm.addMoneyToBank(playerName, amount, "");
+			wurm.addMoneyToBank(rmiPassword, playerName, amount, "");
 			return true;
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -252,9 +245,9 @@ public class WUAhelper {
 		}
 	}
 	
-	private static boolean changePower(String playerName, int power) {
+	private static boolean changePower(String rmiPassword, String playerName, int power) {
 		try {
-			if(wurm.wuaChangePower(playerName, power)) {
+			if(wurm.wuaChangePower(rmiPassword, playerName, power)) {
 				return true;
 			}
 			else {
@@ -267,9 +260,9 @@ public class WUAhelper {
 		}
 	}
 	
-	private static boolean addItem(String playerName, int itemTemplateID, float itemQuality, byte itemRarity, String creator, int itemAmount) {
+	private static boolean addItem(String rmiPassword, String playerName, int itemTemplateID, float itemQuality, byte itemRarity, String creator, int itemAmount) {
 		try {
-			if(wurm.wuaGiveItem(playerName, itemTemplateID, itemQuality, itemRarity, creator, itemAmount)) {
+			if(wurm.wuaGiveItem(rmiPassword, playerName, itemTemplateID, itemQuality, itemRarity, creator, itemAmount)) {
 				return true;
 			}
 			else {
@@ -282,9 +275,9 @@ public class WUAhelper {
 		}
 	}
 	
-	private static boolean changeKingdom(String playerName, int newKingdom) {
+	private static boolean changeKingdom(String rmiPassword, String playerName, int newKingdom) {
 		try {
-			if(wurm.wuaChangeKingdom(playerName, newKingdom)) {
+			if(wurm.wuaChangeKingdom(rmiPassword, playerName, newKingdom)) {
 				return true;
 			}
 			else {
