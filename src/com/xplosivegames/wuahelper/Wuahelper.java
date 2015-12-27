@@ -16,7 +16,7 @@ public class WUAhelper {
 		String rmiPassword = args[2];
 		String doing = args[3];
 		String[] paramters = args[4].split(",", -1);
-		String connectionString = "//" + ip + ":" + port + "/" + rmiPassword;
+		String connectionString = "//" + ip + ":" + port + "/wuinterface";
 		try {
 			wurm = (WebInterface) Naming.lookup(connectionString);
 			switch(doing) {
